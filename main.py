@@ -1,6 +1,7 @@
 import os
-from base64 import b64encode, b64decode
 from typing import Dict, Any
+import Common
+import Hints
 
 
 class Options:
@@ -30,6 +31,14 @@ def import_games():
     return games
 
 
+def read(file):
+    return open(file, 'r', encoding='utf-8').read()
+
+
+def show_hints():
+    print(*[f'3+{i}. {Common.decode(hint)}' for i, hint in enumerate(Hints.encoded)], sep='\n')
+
+
 def main():
     programs = Options({
         'Quit': 'Quit.py'
@@ -38,14 +47,17 @@ def main():
     programs.opts.update(import_games())
 
     do = Options({
-        'Read': lambda file: open(file, 'r', encoding='utf-8').read(),
-        'Encode': lambda file: b64encode(bytes(do['Read'](file), encoding='utf-8')),
-        'Decode': lambda file: b64decode(do['Encode'](file)).decode('utf-8'),
-        'Run': lambda file: exec(do['Read'](file)),
+        'Encode': Common.encode,
+        'Show hints': show_hints,
+        'Run': lambda file: exec(read(file)),
     })
 
     while True:
-        print(f'Result: \n{do.get_user_choice()(programs.get_user_choice())}\n')
+        chosen_action = do.get_user_choice()
+        if chosen_action != show_hints:
+            print(f'Result: \n{chosen_action(programs.get_user_choice())}\n')
+        else:
+            chosen_action()
 
 
 if __name__ == '__main__':

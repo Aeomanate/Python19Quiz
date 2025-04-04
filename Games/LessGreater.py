@@ -1,16 +1,25 @@
 # A less-greater numbers game
-import random
-from base64 import b64encode, b64decode
+from Common import decode
+from Hints import encoded
 
-secret = random.randint(1, 100)
-print('Я загадал число от 1 до 100. Попробуй угадать!')
 
-while True:
-    guess = int(input('Твой вариант: '))
-    if guess < secret:
-        print('Больше!')
-    elif guess > secret:
-        print('Меньше!')
-    else:
-        print('Правильно! 🎉')
-        break
+def side():
+    import random
+
+    secret = random.randint(1, 100)
+    print('I have a number from 1 to 100. Try to guess it!')
+
+    while True:
+        guess = int(input('Твой вариант: '))
+        if guess < secret:
+            print('Greater!')
+        elif guess > secret:
+            print('Less!')
+        else:
+            print('Correct! 🎉')
+            break
+
+    print(f'Your reward: {decode(encoded[0])}')
+
+side()
+
