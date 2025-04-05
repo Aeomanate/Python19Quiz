@@ -36,8 +36,6 @@ def side():
 
         print('You\'ve got it!')
 
-    print(f'Your reward: {decode(encoded[1])}')
-
 
 side()
 

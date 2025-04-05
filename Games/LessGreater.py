@@ -19,7 +19,5 @@ def side():
             print('Correct! 🎉')
             break
 
-    print(f'Your reward: {decode(encoded[0])}')
-
 side()
 

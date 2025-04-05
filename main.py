@@ -47,7 +47,7 @@ def main():
     programs.opts.update(import_games())
 
     do = Options({
-        'Encode': Common.encode,
+        'Encode': lambda file: Common.encode(read(file)),
         'Show hints': show_hints,
         'Run': lambda file: exec(read(file)),
     })
