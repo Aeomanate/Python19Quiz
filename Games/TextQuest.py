@@ -120,7 +120,7 @@ class Option:
         return self._is_make_deepcopy
 
     def set_options(self, options=None):
-        self._options = options and deepcopy(options) or list()
+        self._options = options or list()
         if self._back:
             self._options.append(self._back)
         return self
@@ -607,7 +607,7 @@ class DetectiveOption(RegularOption):
             self._raise_option = getLocation4()
 
         self._text = self.text_template.format(self.text_stages[self.cur_stage])
-        self.set_options(self.options_stages[self.cur_stage])
+        self.set_options(deepcopy(self.options_stages[self.cur_stage]))
 
 
 def getLocation3():
@@ -729,4 +729,4 @@ def getLocation8():
     pass
 
 
-Engine().run(getLocation0())
+Engine().run(getLocation1())
